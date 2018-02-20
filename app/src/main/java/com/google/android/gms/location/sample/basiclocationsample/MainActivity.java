@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.text.TimeZoneFormat;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,12 +34,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -54,6 +61,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -91,6 +99,156 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private View view;
     private LatLng ubicacion;
     private Spinner omision;
+    private Spinner marcaCarro;
+    private Spinner modeloCarro;
+    private int tipoDeVehiculo;//0 = Particular  1 = Moto  2 = Público
+    private boolean circulando;
+    private Button botonCirculando;
+    private Button botonVehiculo;
+    private TextView describirOmision;
+    ArrayAdapter<CharSequence> adapter3;
+    private Context supongoqueasisesoluciona=this;
+    private Date fecha;
+    private TextView estampadoHora;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);//Sin SS jijiji
+        setContentView(R.layout.main_activity);
+
+        mapView = (MapView)findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+        direccion = new LatLng(19.2535591, -103.6981479);//Ubicacion de la dgscyv
+        mLatitudeLabel = getResources().getString(R.string.latitude_label);
+        mLongitudeLabel = getResources().getString(R.string.longitude_label);
+        mLatitudeText = (TextView) findViewById((R.id.latitude_text));
+        mLongitudeText = (TextView) findViewById((R.id.longitude_text));
+        foto1 = (ImageButton)findViewById(R.id.foto1);
+        foto2 = (ImageButton)findViewById(R.id.foto2);
+        foto3 = (ImageButton)findViewById(R.id.foto3);
+        foto4 = (ImageButton)findViewById(R.id.foto4);
+        omision = (Spinner) findViewById(R.id.seleccionadordeOmision);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.Omision, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        omision.setAdapter(adapter1);
+        marcaCarro = (Spinner) findViewById(R.id.marca);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.Marcas, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        marcaCarro.setAdapter(adapter2);
+        modeloCarro=(Spinner) findViewById(R.id.modelo);
+        describirOmision = (TextView) findViewById(R.id.descripcionOmision);
+        estampadoHora = (TextView) findViewById(R.id.hora);
+        fecha = Calendar.getInstance().getTime();
+        String fecha2 = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL).format(fecha);
+
+        estampadoHora.setText(fecha2);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        tipoDeVehiculo = 0;//0 = Particular  1 = Moto  2 = Público
+        circulando = true;
+        botonCirculando = (Button) findViewById(R.id.circulando);
+        botonVehiculo = (Button) findViewById(R.id.tipoVehiculo);
+        omision.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                describirOmision.setText(omision.getSelectedItem().toString());
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        marcaCarro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                describirOmision.setText(omision.getSelectedItem().toString());
+                switch(position) {
+                    case 0:
+                        showSnackbar("¡Selecciona una opción!");
+                        break;
+                    case 1:
+                        adapter3 = ArrayAdapter.createFromResource(supongoqueasisesoluciona,R.array.Nissan, android.R.layout.simple_spinner_item);
+                        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        modeloCarro.setAdapter(adapter3);
+                        break;
+                    case 2:
+                        adapter3 = ArrayAdapter.createFromResource(supongoqueasisesoluciona,R.array.GeneralMotors, android.R.layout.simple_spinner_item);
+                        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        modeloCarro.setAdapter(adapter3);
+                        break;
+                    case 3:
+                        adapter3 = ArrayAdapter.createFromResource(supongoqueasisesoluciona,R.array.Volkswagen, android.R.layout.simple_spinner_item);
+                        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        modeloCarro.setAdapter(adapter3);
+                        break;
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+
+
+
+    }
+
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map)
+    {
+        SOYELMAPA = map;
+        map.addMarker(new MarkerOptions()
+                .position(direccion)
+                .title("DGSCyV")
+        );
+       map.moveCamera(CameraUpdateFactory.newLatLngZoom(direccion,18.0f));
+        Log.i(TAG, "El mapirijilla está listirijillo.");
+    }
+
+
+    @Override
+    public final void onDestroy()
+    {
+        mapView.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public final void onLowMemory()
+    {
+        mapView.onLowMemory();
+        super.onLowMemory();
+    }
+
+    @Override
+    public final void onPause()
+    {
+        mapView.onPause();
+        super.onPause();
+    }
 
 
     public void obtUbi(View v) {//El boton para obtener la ubicación
@@ -104,10 +262,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    public void tipoDeMulta(View v) {//Para tomar las fotos sircunstanciales.
+    public void setCirculando(View v) {//Circulando o no
+if(circulando) {
+    botonCirculando.setText("Estacionado");
+    circulando = false;
+}
+else {
+    botonCirculando.setText("Circulando");
+    circulando = true;
+}
+}
 
 
-    }
 
     public void conductorAP(View v) {//Para tomar las fotos sircunstanciales.
 
@@ -115,17 +281,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void tdVehiculo(View v) {//Para tomar las fotos sircunstanciales.
-
-
-    }
-
-public void fotito1(View v) {//Para tomar las fotos sircunstanciales.
-    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-        startActivityForResult(takePictureIntent, 1);
-    }
-
+switch(tipoDeVehiculo) {//0 = Particular  1 = Moto  2 = Público
+    case 0:
+        botonVehiculo.setText("Motocicleta");
+        tipoDeVehiculo=1;
+        break;
+    case 1:
+        botonVehiculo.setText("Transporte público");
+        tipoDeVehiculo=2;
+        break;
+    case 2:
+        botonVehiculo.setText("Particular");
+        tipoDeVehiculo=0;
+        break;
 }
+}
+
+
+
+    public void fotito1(View v) {//Para tomar las fotos sircunstanciales.
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, 1);
+        }
+
+    }
     public void fotito2(View v) {//Para tomar las fotos sircunstanciales.
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -174,77 +354,6 @@ public void fotito1(View v) {//Para tomar las fotos sircunstanciales.
             extras.clear();
         }
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
-
-        mapView = (MapView)findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
-        direccion = new LatLng(19.2535591, -103.6981479);//Ubicacion de la dgscyv
-        mLatitudeLabel = getResources().getString(R.string.latitude_label);
-        mLongitudeLabel = getResources().getString(R.string.longitude_label);
-        mLatitudeText = (TextView) findViewById((R.id.latitude_text));
-        mLongitudeText = (TextView) findViewById((R.id.longitude_text));
-        foto1 = (ImageButton)findViewById(R.id.foto1);
-        foto2 = (ImageButton)findViewById(R.id.foto2);
-        foto3 = (ImageButton)findViewById(R.id.foto3);
-        foto4 = (ImageButton)findViewById(R.id.foto4);
-        omision = (Spinner) findViewById(R.id.seleccionadordeOmision);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.Omision, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        omision.setAdapter(adapter);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-    }
-
-
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap map)
-    {
-        SOYELMAPA = map;
-        map.addMarker(new MarkerOptions()
-                .position(direccion)
-                .title("DGSCyV")
-        );
-       map.moveCamera(CameraUpdateFactory.newLatLngZoom(direccion,18.0f));
-        Log.i(TAG, "El mapirijilla está listirijillo.");
-    }
-
-
-    @Override
-    public final void onDestroy()
-    {
-        mapView.onDestroy();
-        super.onDestroy();
-    }
-
-    @Override
-    public final void onLowMemory()
-    {
-        mapView.onLowMemory();
-        super.onLowMemory();
-    }
-
-    @Override
-    public final void onPause()
-    {
-        mapView.onPause();
-        super.onPause();
-    }
-
 
 
     @SuppressWarnings("MissingPermission")

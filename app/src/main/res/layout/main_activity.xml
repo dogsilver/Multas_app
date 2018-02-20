@@ -1,175 +1,369 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_activity_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:baselineAligned="false"
-    android:hapticFeedbackEnabled="false"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
-
-
-
-
-
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_activity_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="15dp"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-        <ImageButton
-            android:id="@+id/foto1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="false"
-            android:background="@null"
-            android:contentDescription="@string/todo"
-            android:cropToPadding="false"
-            android:onClick="fotito1"
-            android:padding="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:scaleType="fitCenter"
-
-            app:srcCompat="@drawable/agregar" />
-
-        <ImageButton
-            android:id="@+id/foto2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="false"
-            android:background="@null"
-            android:baselineAligned="false"
-            android:contentDescription="@string/todo"
-            android:cropToPadding="false"
-            android:onClick="fotito2"
-            android:padding="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/agregar" />
-
-        <ImageButton
-            android:id="@+id/foto3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="false"
-            android:background="@null"
-            android:baselineAligned="false"
-            android:contentDescription="@string/todo"
-            android:cropToPadding="false"
-            android:onClick="fotito3"
-            android:padding="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/agregar" />
-
-        <ImageButton
-            android:id="@+id/foto4"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="false"
-            android:background="@null"
-            android:baselineAligned="false"
-            android:contentDescription="@string/todo"
-            android:cropToPadding="false"
-            android:onClick="fotito4"
-            android:padding="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/agregar" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/latitude_text"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:fontFamily="monospace"
-        android:textIsSelectable="true"
-        android:textSize="@dimen/lat_long_text_size" />
-
-    <TextView
-        android:id="@+id/longitude_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="@dimen/text_margin"
-        android:fontFamily="monospace"
-        android:textIsSelectable="true"
-        android:textSize="@dimen/lat_long_text_size" />
-
-
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="120dp" />
-
-    <Button
-        android:id="@+id/obtenerUbicacion"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="30dp"
         android:baselineAligned="false"
-        android:fontFamily="monospace"
-        android:onClick="obtUbi"
-        android:text="@string/obtUbi" />
+        android:hapticFeedbackEnabled="false"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/hora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hora" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/foto1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:background="@null"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="false"
+                android:onClick="fotito1"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+
+                app:srcCompat="@drawable/agregar" />
+
+            <ImageButton
+                android:id="@+id/foto2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:background="@null"
+                android:baselineAligned="false"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="false"
+                android:onClick="fotito2"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/agregar" />
+
+            <ImageButton
+                android:id="@+id/foto3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:background="@null"
+                android:baselineAligned="false"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="false"
+                android:onClick="fotito3"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/agregar" />
+
+            <ImageButton
+                android:id="@+id/foto4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:background="@null"
+                android:baselineAligned="false"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="false"
+                android:onClick="fotito4"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/agregar" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/etiquetaUbicacion"
+            android:textSize="35sp"
+            android:gravity="center_horizontal"
+            android:fontFamily="monospace"/>
+
+        <TextView
+            android:id="@+id/latitude_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="monospace"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/lat_long_text_size" />
+
+        <TextView
+            android:id="@+id/longitude_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/text_margin"
+            android:fontFamily="monospace"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/lat_long_text_size" />
+
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="10dp" />
 
         <Button
-            android:id="@+id/circulando"
-            android:layout_width="180dp"
+            android:id="@+id/obtenerUbicacion"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/circulando" />
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false"
+            android:fontFamily="monospace"
+            android:onClick="obtUbi"
+            android:text="@string/obtUbi" />
 
-        <Button
-            android:id="@+id/tipoVehiculo"
-            android:layout_width="180dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/circulando"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hapticFeedbackEnabled="true"
+                android:onClick="setCirculando"
+                android:text="@string/circulando" />
+
+            <Button
+                android:id="@+id/tipoVehiculo"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:hapticFeedbackEnabled="true"
+                android:onClick="tdVehiculo"
+                android:text="@string/vehiculo_particular" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vehiculo_partiuclar" />
+            android:fontFamily="monospace"
+            android:text="@string/etiquetaomision"
+            android:textSize="35sp"
+            android:gravity="center_horizontal"/>
 
+        <Spinner
+            android:id="@+id/seleccionadordeOmision"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:prompt="@string/select_location"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/descripcionOmision"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:gravity="center_horizontal"
+            android:text="@string/datosVehiculo"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="328dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/marca"
+                android:layout_width="164dp"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/modelo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editPlacas"
+                android:layout_width="164dp"
+                android:layout_height="wrap_content"
+
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:text="Placas" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:text="TDC" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/TDC1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:background="@null"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="false"
+                android:onClick="fotito1"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+
+                app:srcCompat="@drawable/agregar" />
+
+            <ImageButton
+                android:id="@+id/TDC2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:background="@null"
+                android:baselineAligned="false"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="false"
+                android:onClick="fotito2"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/agregar" />
+
+            <ImageButton
+                android:id="@+id/LICENCIA1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:background="@null"
+                android:baselineAligned="false"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="false"
+                android:onClick="fotito3"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/agregar" />
+
+            <ImageButton
+                android:id="@+id/LICENCIA2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:background="@null"
+                android:baselineAligned="false"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="false"
+                android:onClick="fotito4"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/agregar" />
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:gravity="center_horizontal"
+            android:text="@string/datosConductor"
+            android:textSize="25sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/ETIQUETA_NOMBRE_CONDUCTOR" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/APELLIDOCONDUCTOR" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/SEGUNDOAPELLIDOCONDUCTOR" />
 
     </LinearLayout>
-
-    <Spinner
-        android:id="@+id/seleccionadordeOmision"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:prompt="@string/select_location" />
-
-
-
-</LinearLayout>
 </ScrollView>
